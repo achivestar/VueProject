@@ -8,7 +8,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navMenu">
 				<ul class="navbar-nav">
-					<li class="nav-item"  v-for='obj in server_data'>
+					<li class="nav-item"  v-for='obj in server_data' v-bind:key="obj">
 						<router-link to="/board_main" class="nav-link">{{obj.board_info_name}}</router-link>
 					</li>
 				</ul>
@@ -38,7 +38,7 @@ module.exports = {
 		}
 	},
 	created(){
-		axios.get('server/get_board_info.jsp').then((response)=>{
+		axios.get('server/board/get_board_info.jsp').then((response)=>{
 			this.server_data = response.data
 		})
 	}

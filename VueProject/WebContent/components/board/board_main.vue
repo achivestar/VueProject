@@ -14,7 +14,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for='a1 in temp_list' @click='go_board_read'>
+						<tr v-for='a1 in temp_list' @click='go_board_read' v-bind:key="a1">
 							<td class="text-center d-none d-md-table-cell">{{a1}}</td>
 							<td>글 제목 입니다</td>
 							<td class="text-center d-none d-md-table-cell">홍길동</td>
@@ -29,7 +29,7 @@
 						<li class="page-item">
 							<router-link to="/board_main" class="page-link">이전</router-link>
 						</li>
-						<li class="page-item" v-for="a1 in temp_list">
+						<li class="page-item" v-for="a1 in temp_list" v-bind:key="a1">
 							<router-link to="/board_main" class="page-link">{{a1}}</router-link>
 						</li>
 						<li class="page-item">
