@@ -55,13 +55,22 @@
 
 					//var params = new URLSearchParams() // 문자열 데이터만 보낼때
 					var params = new FormData() //파일데이터 까지 보낼때
+					params.append('board_writer_idx',this.$store.state.user_idx)
+					params.append('board_subject',this.board_subject)
+					params.append('board_content',this.board_content)
 					params.append('board_file',$("#board_file")[0].files[0])
+					params.append('content_board_idx',this.$route.params.board_idx)  //$route 는 파라미터로 넘어온 값을 말함
+				
 					axios.post('server/board/add_content.jsp',params).then((response)=>{
-						alert('저장되었습니다')
+						if(response.data.result == true){
+								alert('작성이 완료 되되었습니다')
+								this.$router.push("/board_read")
+						}
+						
 					})
 					
 				
-					//this.$router.push("/board_main")
+					
 			}
 		
 		}			

@@ -26,4 +26,28 @@
 	//업로드 처리
 	MultipartRequest mr = new MultipartRequest(request,path,maxSize,"UTF-8",policy);
 	
+	String str1 = mr.getParameter("board_writer_idx");
+	int board_writer_idx = Integer.parseInt(str1);
+	
+	String str2 = mr.getParameter("content_board_idx");
+	int content_board_idx = Integer.parseInt(str2);
+	
+	String board_subject = mr.getParameter("board_subject");
+	String board_content = mr.getParameter("board_content");
+	String board_file = mr.getFilesystemName("board_file");
+	
+	String sql = "INSERT INTO content_table (content_subject, content_text, content_file, content_writer_idx, content_board_idx) VALUES (?,?,?,?,?)";
+	PreparedStatement pstmt = db.prepareStatement(sql);
+	pstmt.setString(1, board_subject);
+	pstmt.setString(2, board_content);
+	pstmt.setString(3, board_file);
+	pstmt.setInt(4, board_writer_idx);
+	pstmt.setInt(5, content_board_idx);
+	
+	pstmt.execute();
+	db.close();
+
 %>	
+{
+	"result" : true
+}
