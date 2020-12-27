@@ -1,3 +1,13 @@
+var store = new Vuex.Store({
+	//공용변수
+	//애플리케이션 전체에서 사용할 변수
+	state : {
+		user_login_chk : false,
+		user_id : '',
+		user_name : '',
+		user_idx : 0
+	}
+})
 var router = new VueRouter({
 	routes : [
 		{
@@ -43,6 +53,11 @@ var router = new VueRouter({
 			path : '/logout',
 			beforeEnter(to, from, next){
 				alert('로그아웃 되었습니다.')
+				store.state.user_login_chk = false
+				store.state.user_id = ''
+				store.state.user_name = ''
+				store.state.user_idx = 0
+				sessionStorage.clear()
 				next('/')
 			}
 		}

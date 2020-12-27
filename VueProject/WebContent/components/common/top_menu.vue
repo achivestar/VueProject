@@ -13,13 +13,15 @@
 					</li>
 				</ul>
 				
-				<ul class="navbar-nav ml-auto">
+				<ul class="navbar-nav ml-auto" v-if='$store.state.user_login_chk==false'>
 					<li class="nav-item">
 						<router-link to="/login" class="nav-link">로그인</router-link>
 					</li>
 					<li class="nav-item">
 						<router-link to="/join" class="nav-link">회원가입</router-link>
 					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto" v-else>
 					<li class="nav-item">
 						<router-link to="/modify_user" class="nav-link">정보수정</router-link>
 					</li>

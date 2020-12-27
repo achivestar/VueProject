@@ -53,9 +53,38 @@
 					$("#user_pw").focus()
 					return 
 				}
+
+				var params = new URLSearchParams()
+				params.append('user_id',this.user_id)
+				params.append('user_pw',this.user_pw)
+
+				axios.post('server/user/login.jsp',params).then((response)=>{
+					if(response.data.result==false){
+						alert('로그인에 실패 하였습니다')
+						this.user_id = ''
+						this.user_pw = '' 
+						this.is_login_fail = true
+					} else{
+						alert('로그인 되었습니다')
+						
+						//서버가 전달한 데이터를 store에 담겠다
+						this.$store.state.user_login_chk = true
+						this.$store.state.user_id = response.data.user_id
+						this.$store.state.user_name = response.data.user_name
+						this.$store.state.user_idx = response.data.user_idx
+
+						// 로그인 성공후 새로고침 하면 데이터가 모두 사라지는 문제가 있으므로
+						// 세션 스토리지에 저장을 하겠다
+						sessionStorage.user_login_chk = true
+						sessionStorage.user_id =  response.data.user_id
+						sessionStorage.user_name =  response.data.user_name
+						sessionStorage.user_idx = response.data.user_idx
+						this.$router.push('/')
+					}
+				})
+
 				
-				alert('로그인 되었습니다')
-				this.$router.push('/')
+			
 			}
 		}
 	}

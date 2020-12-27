@@ -12,8 +12,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr v-for="a1 in temp_list" @click="go_board_read">
-									<td class="text-center">{{a1}}</td>
+								<tr v-for="a2 in temp_list" @click="go_board_read" v-bind:key="a2">
+									<td class="text-center">{{a2}}</td>
 									<td>제목입니다</td>
 									<td class="text-center d-none d-xl-table-cell">2018-12-12</td>
 								</tr>
