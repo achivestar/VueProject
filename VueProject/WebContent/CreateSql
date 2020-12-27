@@ -1,0 +1,38 @@
+CREATE TABLE `board_info_table` (
+	`board_info_idx` INT(11) NOT NULL AUTO_INCREMENT,
+	`board_info_name` VARCHAR(100) NOT NULL DEFAULT '0' COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`board_info_idx`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+CREATE TABLE `user_table` (
+	`user_idx` INT(11) NOT NULL AUTO_INCREMENT,
+	`user_name` VARCHAR(100) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	`user_id` VARCHAR(100) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	`user_pw` VARCHAR(100) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	PRIMARY KEY (`user_idx`) USING BTREE
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+
+CREATE TABLE `content_table` (
+	`content_idx` INT(11) NOT NULL AUTO_INCREMENT,
+	`content_subject` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
+	`content_text` TEXT NOT NULL COLLATE 'utf8_general_ci',
+	`content_file` VARCHAR(200) NOT NULL DEFAULT '' COLLATE 'utf8_general_ci',
+	`content_writer_idx` INT(11) NOT NULL DEFAULT '0',
+	`content_board_idx` INT(11) NOT NULL DEFAULT '0',
+	`content_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (`content_idx`) USING BTREE,
+	INDEX `FK_content_table_user_table` (`content_writer_idx`) USING BTREE,
+	INDEX `FK_content_table_board_info_table` (`content_board_idx`) USING BTREE,
+	CONSTRAINT `FK_content_table_board_info_table` FOREIGN KEY (`content_board_idx`) REFERENCES `kkameun12`.`board_info_table` (`board_info_idx`) ON UPDATE RESTRICT ON DELETE RESTRICT,
+	CONSTRAINT `FK_content_table_user_table` FOREIGN KEY (`content_writer_idx`) REFERENCES `kkameun12`.`user_table` (`user_idx`) ON UPDATE RESTRICT ON DELETE RESTRICT
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB;
+
+
+
