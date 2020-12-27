@@ -9,7 +9,7 @@
 			<div class="collapse navbar-collapse" id="navMenu">
 				<ul class="navbar-nav">
 					<li class="nav-item"  v-for='obj in server_data' v-bind:key="obj">
-						<router-link to="/board_main" class="nav-link">{{obj.board_info_name}}</router-link>
+						<router-link :to="'/board_main/' +obj.board_info_idx" class="nav-link">{{obj.board_info_name}}</router-link>
 					</li>
 				</ul>
 				

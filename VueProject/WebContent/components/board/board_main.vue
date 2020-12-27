@@ -3,7 +3,7 @@
 	<div class="container" style="margin-top:100px">
 		<div class="card shadow">
 			<div class="card-body">
-				<h4 class="card-title">게시판 이름</h4>
+				<h4 class="card-title">{{server_data.board_info_name}}</h4>
 				<table class="table table-hover" id='board_list'>
 					<thead>
 						<tr>
@@ -49,8 +49,8 @@
 					</ul>
 				</div>
 				
-				<div class="text-right">
-					<router-link to="/board_write" class="btn btn-primary">글쓰기</router-link>
+				<div class="text-right" v-if="$store.state.user_login_chk==true">
+					<router-link :to="'/board_write/'+$route.params.board_idx" class="btn btn-primary" >글쓰기</router-link>
 				</div>
 				
 			</div>
@@ -66,13 +66,31 @@
 	module.exports = {
 		data : function(){
 			return {
-				temp_list : [1,2,3,4,5,6,7,8,9,10]
+				temp_list : [1,2,3,4,5,6,7,8,9,10],
+				server_data : {}
 			}
 		},
 		methods : {
 			go_board_read : function(){
 				this.$router.push('/board_read')
+			},
+			get_board_data : function(){
+				//alert(this.$route.params.board_idx)
+				var params = new URLSearchParams()
+				params.append("board_idx",this.$route.params.board_idx)
+				axios.post('server/board/get_board_list.jsp',params).then((response)=>{
+					this.server_data = response.data
+				})
 			}
+		},
+		watch : {
+			'$route' (to, from){
+					this.get_board_data()
+			}
+			
+		},
+		created(){  //컴포넌트가 만들어질때 호출
+			this.get_board_data()
 		}
 	}
 </script>

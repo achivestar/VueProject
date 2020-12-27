@@ -52,9 +52,16 @@
 						$("#board_content").focus()
 						return
 					}
+
+					//var params = new URLSearchParams() // 문자열 데이터만 보낼때
+					var params = new FormData() //파일데이터 까지 보낼때
+					params.append('board_file',$("#board_file")[0].files[0])
+					axios.post('server/board/add_content.jsp',params).then((response)=>{
+						alert('저장되었습니다')
+					})
 					
-					alert("저장되었습니다")
-					this.$router.push("/board_main")
+				
+					//this.$router.push("/board_main")
 			}
 		
 		}			

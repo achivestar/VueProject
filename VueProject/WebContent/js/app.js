@@ -10,10 +10,13 @@ $(function(){
 		},
 		beforeCreate : function(){
 			if(sessionStorage.user_login_chk != undefined){  // 세션스토리지 정보가 자장되어 있다
-				this.$store.state.user_login_chk = sessionStorage.user_login_chk
+				if(sessionStorage.user_login_chk == 'true'){
+							this.$store.state.user_login_chk = true
+				}
+			
 				this.$store.state.user_id = sessionStorage.user_id
 				this.$store.state.user_name = sessionStorage.user_name
-				this.$store.state.user_idx = sessionStorage.user_idx
+				this.$store.state.user_idx = parseInt(sessionStorage.user_idx)
 			}
 		}
 	})
