@@ -14,11 +14,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for='a1 in temp_list' @click='go_board_read' v-bind:key="a1">
-							<td class="text-center d-none d-md-table-cell">{{a1}}</td>
-							<td>글 제목 입니다</td>
-							<td class="text-center d-none d-md-table-cell">홍길동</td>
-							<td class="text-center d-none d-md-table-cell">2018-12-12</td>
+						<tr v-for='obj in server_data.board_lists' @click='go_board_read' v-bind:key="obj">
+							<td class="text-center d-none d-md-table-cell">{{obj.content_idx}}</td>
+							<td>{{obj.content_subject}}</td>
+							<td class="text-center d-none d-md-table-cell">{{obj.content_writer_name}}</td>
+							<td class="text-center d-none d-md-table-cell">{{obj.content_date}}</td>
 							
 						</tr>
 					</tbody>
