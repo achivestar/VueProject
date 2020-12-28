@@ -19,7 +19,7 @@ var router = new VueRouter({
 			component : httpVueLoader('components/board/board_main.vue')
 		},
 		{
-			path : '/board_read',
+			path : '/board_read/:board_idx/:page/:content_idx',
 			component : httpVueLoader('components/board/board_read.vue')
 		},
 		{

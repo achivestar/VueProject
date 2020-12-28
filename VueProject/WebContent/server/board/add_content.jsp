@@ -45,9 +45,18 @@
 	pstmt.setInt(5, content_board_idx);
 	
 	pstmt.execute();
+	
+	// 새롭게 추가된 글의 번호를 파악
+	String newWriteNumSql = "SELECT MAX(content_idx) as content_idx FROM content_table";
+	PreparedStatement newWNpre = db.prepareStatement(newWriteNumSql);
+	ResultSet newRs = newWNpre.executeQuery();
+	
+	newRs.next();
+	int content_idx = newRs.getInt("content_idx");
 	db.close();
 
 %>	
 {
-	"result" : true
+	"result" : true,
+	"content_idx" :<%=content_idx%>
 }

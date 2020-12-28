@@ -14,9 +14,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr v-for='obj in server_data.board_lists' @click='go_board_read' v-bind:key="obj">
+						<tr v-for='obj in server_data.board_lists'  v-bind:key="obj">
 							<td class="text-center d-none d-md-table-cell">{{obj.content_idx}}</td>
-							<td>{{obj.content_subject}}</td>
+							<td @click='go_board_read(obj.content_idx)'>{{obj.content_subject}}</td>
 							<td class="text-center d-none d-md-table-cell">{{obj.content_writer_name}}</td>
 							<td class="text-center d-none d-md-table-cell">{{obj.content_date}}</td>
 							
@@ -62,8 +62,9 @@
 			}
 		},
 		methods : {
-			go_board_read : function(){
-				this.$router.push('/board_read')
+			go_board_read : function(content_idx){
+			//	alert(content_idx);
+				this.$router.push('/board_read/'+this.$route.params.board_idx+'/'+this.$route.params.page+'/'+content_idx)
 			},
 			get_board_data : function(){
 				//alert(this.$route.params.board_idx)
