@@ -27,27 +27,17 @@
 				<div class="d-none d-md-block">
 					<ul class="pagination justify-content-center">
 						<li class="page-item">
-							<router-link to="/board_main" class="page-link">이전</router-link>
+							<router-link :to="'/board_main/'+$route.params.board_idx+'/'+server_data.pre" class="page-link">이전</router-link>
 						</li>
-						<li class="page-item" v-for="a1 in temp_list" v-bind:key="a1">
-							<router-link to="/board_main" class="page-link">{{a1}}</router-link>
+						<li  class="page-item"  v-bind:class="{active : server_data.cur_page==page}"  v-for="page in server_data.page_array" v-bind:key="page" >
+							<router-link :to="'/board_main/' +$route.params.board_idx+'/'+page" class="page-link" >{{page}}</router-link>
 						</li>
 						<li class="page-item">
-						     <router-link to="/board_main" class="page-link">다음</router-link>
+						     <router-link :to="'/board_main/'+$route.params.board_idx+'/'+server_data.next" class="page-link">다음</router-link>
 						</li>
 					</ul>
 				</div>
-				
-				<div class="d-block d-md-none">
-					<ul class="pagination justify-content-center">
-						<li class="page-item">
-							 <router-link to="/board_main" class="page-link">이전</router-link>
-						</li>
-						<li class="page-item">
-							 <router-link to="/board_main" class="page-link">다음</router-link>
-						</li>
-					</ul>
-				</div>
+
 				
 				<div class="text-right" v-if="$store.state.user_login_chk==true">
 					<router-link :to="'/board_write/'+$route.params.board_idx" class="btn btn-primary" >글쓰기</router-link>
@@ -66,8 +56,9 @@
 	module.exports = {
 		data : function(){
 			return {
-				temp_list : [1,2,3,4,5,6,7,8,9,10],
+				//temp_list : [1,2,3,4,5,6,7,8,9,10],
 				server_data : {}
+			
 			}
 		},
 		methods : {
@@ -78,6 +69,7 @@
 				//alert(this.$route.params.board_idx)
 				var params = new URLSearchParams()
 				params.append("board_idx",this.$route.params.board_idx)
+				params.append("page",this.$route.params.page)
 				axios.post('server/board/get_board_list.jsp',params).then((response)=>{
 					this.server_data = response.data
 				})
